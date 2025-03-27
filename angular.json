@@ -3,5 +3,127 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "tree-comp": {
+      "projectType": "library",
+      "root": "projects/tree-comp",
+      "sourceRoot": "projects/tree-comp/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/tree-comp/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/tree-comp/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/tree-comp/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/tree-comp/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "tree-comp-example": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/tree-comp-example",
+      "sourceRoot": "projects/tree-comp-example/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/tree-comp-example",
+            "index": "projects/tree-comp-example/src/index.html",
+            "browser": "projects/tree-comp-example/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/tree-comp-example/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/tree-comp-example/public"
+              }
+            ],
+            "styles": [
+              "projects/tree-comp-example/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "tree-comp-example:build:production"
+            },
+            "development": {
+              "buildTarget": "tree-comp-example:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/tree-comp-example/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/tree-comp-example/public"
+              }
+            ],
+            "styles": [
+              "projects/tree-comp-example/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
   }
 }

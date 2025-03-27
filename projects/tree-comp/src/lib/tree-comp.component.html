@@ -1,0 +1,44 @@
+<div>
+    <ng-template #list let-items let-expand="expand">
+        <ng-container *ngIf="expand">
+            <div *ngFor="let item of items;trackBy:identify" class="tab-items data" [id]="item.id">
+                <div class="tab-item" [ngClass]="{'selected' : item.expand}">
+                    <button
+                        (click)="onExpand(item)"
+                        class="customIcon"
+                        *ngIf="configTree.arrowIconFlag"
+                        [style.visibility]="item.children && item.children.length !== 0 ? 'visible' : 'hidden'"
+                        ><i class="material-symbols-outlined">{{configTree.arrowIcon}}</i></button>
+                    <button
+                        (click)="onExpand(item)"
+                        class="icon"
+                        *ngIf="!configTree.arrowIconFlag"
+                        [style.visibility]="item.children && item.children.length !== 0 ? 'visible' : 'hidden'"
+                    ></button>
+                    <div [innerHTML]="spanIcon" *ngIf="configTree.htmlIcon && configTree.icon"></div>
+                    <span class="material-symbols-outlined" *ngIf="!configTree.htmlIcon && configTree.icon">{{item.icon}}</span>
+                    <p (click)="onSelected(item)" [ngClass]="{'selected-field': selectedId === item.id}">{{item.name}}</p>
+                    <button
+                        (click)="onAdd(item)"
+                        class="plus-icon"
+                        *ngIf="configTree.addIconFlag"
+                    ></button>
+                </div>
+                <div *ngIf="item.edit">
+                    <input type="text" #addItemValue/>
+                    <button (click)="onSubmit(item, addItemValue.value)">Add</button>
+               </div>
+                <ng-container *ngTemplateOutlet="list; context: { $implicit: item.children, expand: item.expand  }"></ng-container>
+            </div>
+        </ng-container>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="list; context: { $implicit: configData, expand: true }"></ng-container>
+    </div>
+    
+    <button (click)="onCheck()">dkjalkdjskldjlk</button>
+    
+    <!-- <div class="model-tree" *ngIf="showPopup">
+    <div class="form-add">
+        <ng-content></ng-content>
+    </div>
+    </div> -->

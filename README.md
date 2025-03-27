@@ -1,59 +1,76 @@
-# TreeCompApp
+# TreeComp
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
 
-## Development server
+This library supports only 19 version of angular
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+# Installation
 
 ```bash
-ng generate component component-name
+npm i tree-comp
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+# Integration
 
 ```bash
-ng generate --help
+import { TreeCompComponent } from 'tree-comp';
+
+@Component({
+  imports: [TreeCompComponent],
+})
 ```
-
-## Building
-
-To build the project run:
+OR
 
 ```bash
-ng build
+@NgModule({
+  imports: [TreeCompComponent],
+})
+
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
 ```bash
-ng test
+<app-tree-comp
+  [configData]="configureData"
+  [configTree]="configTree"
+>
+</app-tree-comp>
+
 ```
 
-## Running end-to-end tests
+# IConfigTree
 
-For end-to-end (e2e) testing, run:
+Tree configuration for custom icon to display.
+
+Add and remove the custom functionality.
+```bash
+
+configTree: IConfigTree = {
+    arrowIcon: 'chevron_right', // adding icon name
+    arrowIconFlag: true, // hide the arrow icon
+    htmlIcon: false, // 
+    icon: false, // hide title icon
+    expand: true, // initial expand the all tree
+    addIconFlag: true, // add icon functionality
+};
+
+```
+# IConfigTreeData
+
+Tree data format 
 
 ```bash
-ng e2e
+
+ IConfigTreeData {
+    name: string; // name for display
+    id: string | number; // id to handle array
+    icon?: string; // if require to display the beside of name
+    children?: IConfigTreeData[]; // Add children to this object
+    data?: any; // handle any data
+    selected?: boolean; // selected object
+    expand?: boolean; // initial expand given tree
+    edit?: boolean; // edit function to add
+}
+
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
